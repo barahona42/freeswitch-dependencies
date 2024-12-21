@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker build -t freeswitch-dependencies/xfree86 -f Dockerfile .

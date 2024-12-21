@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+## Downloads and extracts the xfree86 source from their http server at http://ftp.xfree86.org/pub/XFree86/
+## TODO: We will need to retain our own copy of these archives
+
+VERSION=4.8.0
+
+mkdir -p source
+i=1
+while [ $i -lt 8 ]; do
+    name="XFree86-$VERSION-src-$i.tgz"
+    wget -O "source/$name" "http://ftp.xfree86.org/pub/XFree86/$VERSION/source/$name"
+    i=$((i+1))
+done
+
+ls source/*.tgz | xargs -n1 tar -C source -xzvf
+ls source/*.tgz | xargs rm

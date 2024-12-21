@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -ue
+bash scripts/build-image base
+bash scripts/build-image "$1"
+
+base_image_tag='rocky810:rpmbuild'
+
+docker run --rm -t -i $base_image_tag-$1

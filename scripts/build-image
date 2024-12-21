@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -u
+
+d=$1
+
+base_image_tag='rocky810:rpmbuild'
+
+case $1 in 
+    base)
+        dockerfile=Dockerfile
+        build_context=.
+    ;;
+    *)
+        if [[ ! -d src/$1 ]]; then
+            echo "invalid src: src/$1"
+            exit 1
+        fi
+        dockerfile=src/$1/Dockerfile
+        build_context=src/$1
+    ;;
+esac
+
+docker build \
+    -t $base_image_tag-$1 \
+    -f $dockerfile $build_context
