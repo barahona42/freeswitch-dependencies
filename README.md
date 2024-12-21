@@ -2,6 +2,22 @@
 
 a repository for packaging various utilities used by freeswitch
 
+## usage
+
+the idea behind this repo is to set up a repeatable and containerized flow for building various "freeswitch" dependencies. at the top-level, the Dockerfile defines a base rockylinux image.
+
+under src, a number of directories with corresponding Dockerfiles based on the base rockylinux image are defined. these are intended to encapsulate the build flow as much as possible so it's easier to maintain.
+
+the build order thus far:
+```
+/Dockerfile
+/src/gcc-prereqs/Dockerfile
+/src/gcc/Dockerfile
+```
+a set of scripts are provided under `scripts` to make build/run operations on container images easier:
+- `build-image [SRC_BASENAME]`
+- `run-image [SRC_BASENAME]` 
+
 ## todo
 
 - [ ] create a base container image that will be used for all rpm builds
