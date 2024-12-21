@@ -20,10 +20,14 @@ a set of scripts are provided under `scripts` to make build/run operations on co
 
 ## todo
 
-- [ ] create a base container image that will be used for all rpm builds
-- [ ] create a per-package container
-- [ ] i might be able to do `make` and copy the made files over to another stage to run `make install`
-- [ ] set up an ftp server or something to host the tar.gz stuff
+- [ ] build gcc prereqs
+- [ ] build gcc
+- [ ] build glibc
+- [ ] build xfree86
+
+- [ ] base image for rpm builds
+- [ ] modify existing build containers to generate rpm files
+- [ ] self-host archives for build dependencies
 
 ## from gmp
 ```
@@ -41,18 +45,20 @@ flag during linking and do at least one of the following:
    - use the `-Wl,--rpath -Wl,LIBDIR' linker flag
    - have your system administrator add LIBDIR to `/etc/ld.so.conf'
 ```
-
-```bash
-cat << EOF > $HOME/local/share/config.site
-> CPPFLAGS=-I$HOME/local/include
-> LDFLAGS=-L$HOME/local/lib
-> LD_LIBRARY_PATH=/usr/local/lib
-> LD_RUN_PATH=/usr/local/lib
-> EOF
-```
-
-./usr/local/include/gmp.h
-./usr/local/lib/libgmp.so.3
-
-
-gcc -c -Wall -Wmissing-prototypes -Wpointer-arith -g -O2 conftest.c
+## issues
+- mpfr config.log showed that libgmp.so.3 did not exist
+  - relevant files:
+    - ./usr/local/include/gmp.h6
+    - ./usr/local/lib/libgmp.so.3
+    - failed command: `gcc -c -Wall -Wmissing-prototypes -Wpointer-arith -g -O2 conftest.c
+`
+  - confirmed both files exist in filesystem after gmp `make install`
+  - the solution, to inform LD of the libraries' location
+      ```dockerfile
+      ENV LD_LIBRARY_PATH=/usr/local/include:/usr/local/lib
+- gcc `make` failed due to missing `CXXABI_1.3.9`
+  - confirmed `/usr/lib64/libstdc++.so.6` includes required version
+  - the solution, to preload the file:
+      ```dockerfile
+      ENV LD_PRELOAD=/usr/lib64/libstdc++.so.6
+      ```
