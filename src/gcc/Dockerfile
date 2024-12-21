@@ -10,5 +10,3 @@ RUN dnf install -y gcc-c++
 # ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 ENV LD_PRELOAD=/usr/lib64/libstdc++.so.6
 RUN ./configure --disable-multilib --enable-languages=c,c++ --build=$(/usr/share/automake-1.16/config.guess)
-## after this, it looks like make failed because of the 'CXXABI_1.3.9' not found error 
-## i remember seeing something about abi from one of the prereqs (gmp?)

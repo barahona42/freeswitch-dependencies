@@ -61,4 +61,6 @@ flag during linking and do at least one of the following:
   - the solution, to preload the file:
       ```dockerfile
       ENV LD_PRELOAD=/usr/lib64/libstdc++.so.6
-      ```
+- gcc `make` failed due to `sys/ustat.h: no such file or directory6`
+  - looks like sys/ustat.h was removed on glibc 2.28. will need to downgrade.
+  - review [holy-build-box](https://phusion.github.io/holy-build-box/)
