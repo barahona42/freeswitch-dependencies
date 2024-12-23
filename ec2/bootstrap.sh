@@ -18,15 +18,12 @@ dnf update -y
 dnf install -y $(cat ec2/dnf-requirements.txt | xargs)
 
 section "preparing gcc-prereqs"
-if [[ ! -d /tmp/gcc ]]; then
-    wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
-    mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
-fi
+wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
+mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
 
 cd /tmp/gcc && ./contrib/download_prerequisites
-if [[ ! -f /var/build_host ]]; then
-    $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
-fi
+
+$(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 
 info "build_host: $(< /var/build_host)"
 
@@ -47,4 +44,4 @@ cd -
 
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
-./configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host)
+# ./configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host)
