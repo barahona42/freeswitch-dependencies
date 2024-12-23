@@ -5,9 +5,9 @@ info(){
 }
 
 section(){
-    printf "\033[35m-------------------------\033[0m\n\n"
-    info "$1"
-    printf "\033[35m-------------------------\033[0m\n\n"
+    printf "\t\033[35m-------------------------\033[0m\n\n"
+    info "\t$1"
+    printf "\t\033[35m-------------------------\033[0m\n\n"
 }
 
 ## install dnf packages
@@ -24,3 +24,13 @@ cd /tmp/gcc && ./contrib/download_prerequisites
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 
 info "build_host: $(< /var/build_host)"
+
+dirs=(gmp cloog isl mpfr mpc)
+for d in ${dirs[@]}; do
+    info "building and installing /tmp/gcc/$d"
+    cd /tmp/gcc/$d
+    ./configure --build=$(</var/build_host)
+    make
+    make install
+    info "done"
+done
