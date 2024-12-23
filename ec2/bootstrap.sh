@@ -18,23 +18,29 @@ dnf update -y
 dnf install -y $(cat ec2/dnf-requirements.txt | xargs)
 
 section "preparing gcc-prereqs"
-wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
-mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
+if [[ ! -f /tmp/gcc.tar.gz ]]; then
+    info "downloading gcc tarball"
+    wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
+fi
+info "extracting gcc"
+rm -rf /tmp/gcc && mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
+
+info "downloading prerequisites"
 
 cd /tmp/gcc && ./contrib/download_prerequisites
 
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
-
 info "build_host: $(< /var/build_host)"
 
+info "building prerequisites"
 dirs=(gmp cloog isl mpfr mpc)
 for d in ${dirs[@]}; do
-    info "building and installing /tmp/gcc/$d"
+    info "prereq: /tmp/gcc/$d"
     cd /tmp/gcc/$d
     ./configure --build=$(</var/build_host)
     make
     make install
-    info "done"
+    info "$d: done"
 done
 
 section "applying patches to gcc"
