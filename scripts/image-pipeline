@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source scripts/env.sh
+
+info "building base" 
+scripts/build-image base
+info "$BASE_IMAGE_TAG-base"
+
+info "building gcc-prereqs"
+scripts/build-image gcc-prereqs
+info "$BASE_IMAGE_TAG-gcc-prereqs"
+
+info "building gcc"
+scripts/build-image gcc
+info "$BASE_IMAGE_TAG-gcc"
