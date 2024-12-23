@@ -12,5 +12,15 @@ section(){
 
 ## install dnf packages
 
+section "installing dnf packages"
+
 dnf update -y
 dnf install -y $(cat ec2/dnf-requirements.txt | xargs)
+
+section "preparing gcc-prereqs"
+wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
+mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
+cd /tmp/gcc && ./contrib/download_prerequisites
+$(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
+
+info "build_host: $(< /var/build_host)"
