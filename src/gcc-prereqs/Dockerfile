@@ -11,7 +11,6 @@ RUN dnf install -y gcc make
 WORKDIR /tmp/gcc/gmp
 RUN ./configure --build=$(< /var/build_host)
 RUN make
-RUN make
 RUN make install
 
 ## cloog
