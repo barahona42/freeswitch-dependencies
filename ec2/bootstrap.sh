@@ -34,3 +34,12 @@ for d in ${dirs[@]}; do
     make install
     info "done"
 done
+
+section "applying patches to gcc"
+patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
+cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
+cd -
+
+section "starting gcc build"
+export LD_PRELOAD=/usr/lib64/libstdc++.so.6
+./configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host4)s
