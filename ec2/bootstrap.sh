@@ -49,5 +49,7 @@ cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
 cd -
 
 section "starting gcc build"
+mkdr /tmp/objdir
+cd /tmp/objdir
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
-# ./configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host)
+# /tmp/gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
