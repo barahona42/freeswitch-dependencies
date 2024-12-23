@@ -4,12 +4,12 @@ source scripts/env.sh
 
 info "building base" 
 scripts/build-image base
-info "$BASE_IMAGE_TAG-base"
+info "$(dir_to_tag base)"
 
 info "building gcc-prereqs"
 scripts/build-image gcc-prereqs
-info "$BASE_IMAGE_TAG-gcc-prereqs"
+info "$(dir_to_tag gcc-prereqs)"
 
 info "building gcc"
 scripts/build-image gcc
-info "$BASE_IMAGE_TAG-gcc"
+info "$(dir_to_tag gcc)"

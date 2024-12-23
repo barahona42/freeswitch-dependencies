@@ -10,5 +10,5 @@ BASE_IMAGE_TAG='rocky810/rpmbuild'
 
 
 dir_to_tag(){
-    echo "$BASE_IMAGE_TAG:$1"
+    echo "$BASE_IMAGE_TAG/$1"
 }
