@@ -32,16 +32,17 @@ cd /tmp/gcc && ./contrib/download_prerequisites
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 info "build_host: $(< /var/build_host)"
 
-info "building prerequisites"
-dirs=(gmp cloog isl mpfr mpc)
-for d in ${dirs[@]}; do
-    info "prereq: /tmp/gcc/$d"
-    cd /tmp/gcc/$d
-    ./configure --build=$(</var/build_host)
-    make
-    make install
-    info "$d: done"
-done
+## we don't need to configure and install these prerequisites ourselves. gcc build will do it for us.
+# info "building prerequisites"
+# dirs=(gmp cloog isl mpfr mpc)
+# for d in ${dirs[@]}; do
+#     info "prereq: /tmp/gcc/$d"
+#     cd /tmp/gcc/$d
+#     ./configure --build=$(</var/build_host)
+#     make
+#     make install
+#     info "$d: done"
+# done
 
 section "applying patches to gcc"
 patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
@@ -53,3 +54,4 @@ mkdr /tmp/objdir
 cd /tmp/objdir
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
 # /tmp/gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
+# make -j 2
