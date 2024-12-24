@@ -17,6 +17,8 @@ section "installing dnf packages"
 dnf update -y
 dnf install -y $(cat ec2/dnf-requirements.txt | xargs)
 
+updatedb || true
+
 section "preparing gcc-prereqs"
 if [[ ! -f /tmp/gcc.tar.gz ]]; then
     info "downloading gcc tarball"
