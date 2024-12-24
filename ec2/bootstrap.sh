@@ -52,6 +52,7 @@ cd -
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
 
+rm -rf /tmp/objdir
 mkdir /tmp/objdir
 cd /tmp/objdir
 ../gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
