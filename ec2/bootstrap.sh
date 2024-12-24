@@ -63,10 +63,12 @@ info "build_host: $(< /var/build_host)"
 
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
 
 rm -rf /tmp/objdir
 mkdir /tmp/objdir
 cd /tmp/objdir
+../gcc/configure --disable-multilib --enable-languages=c,c++ 
 ## TODO: build without setting the build flag?
 # ../gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
 # make -j 2
