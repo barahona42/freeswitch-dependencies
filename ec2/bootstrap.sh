@@ -65,10 +65,15 @@ section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
 
+info "created objdir"
 rm -rf /tmp/objdir
 mkdir /tmp/objdir
 cd /tmp/objdir
+info "configuring"
 ../gcc/configure --disable-multilib --enable-languages=c,c++ 
+
+cd -
+# bash scripts/notify-slack.sh "ec2 bootstrap completed"
 ## TODO: build without setting the build flag?
 # ../gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
 # make -j 2
