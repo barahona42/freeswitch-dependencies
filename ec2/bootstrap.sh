@@ -47,9 +47,19 @@ info "build_host: $(< /var/build_host)"
 # done
 
 section "applying patches to gcc"
-patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
-cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
-cd -
+
+for file in $(find src/gcc/patches -type f -name '*.patch'); do
+    source="$(realpath $file)"
+    target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
+    echo -e "applying\n\t$source --> $target"
+    cd "$(dirname $target)"
+    patch < "$source"
+    cd -
+done
+
+# patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
+# cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
+# cd -
 
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
