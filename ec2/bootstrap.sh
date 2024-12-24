@@ -27,6 +27,17 @@ fi
 info "extracting gcc"
 rm -rf /tmp/gcc && mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
 
+section "applying patches to gcc"
+
+for file in $(find src/gcc/patches -type f -name '*.patch'); do
+    source="$(realpath $file)"
+    target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
+    echo -e "applying\n\t$source --> $target"
+    cd "$(dirname $target)"
+    patch < "$source"
+    cd -
+done
+
 info "downloading prerequisites"
 
 cd /tmp/gcc && ./contrib/download_prerequisites
@@ -45,17 +56,6 @@ info "build_host: $(< /var/build_host)"
 #     make install
 #     info "$d: done"
 # done
-
-section "applying patches to gcc"
-
-for file in $(find src/gcc/patches -type f -name '*.patch'); do
-    source="$(realpath $file)"
-    target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
-    echo -e "applying\n\t$source --> $target"
-    cd "$(dirname $target)"
-    patch < "$source"
-    cd -
-done
 
 # patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
 # cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
