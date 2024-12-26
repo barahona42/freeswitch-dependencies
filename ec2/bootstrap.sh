@@ -57,7 +57,11 @@ mkdir /var/objdir
 cd /var/objdir
 info "configuring"
 ## TODO: try with build and target flags
-../gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --host=$(< /var/build_host) 2>&1 | tee /var/log/gcc-conf
+../gcc/configure --disable-multilib \
+    --enable-shared --with-system-zlib \
+    --enable-languages=c,c++ \
+    --build=$(< /var/build_host) \
+    --host=$(< /var/build_host) 2>&1 | tee /var/log/gcc-conf
 info "configuration completed at $(pwd)"
 cd $START_DIR
 bash scripts/notify-slack.sh "$(hostname) configure finished" "/var/log/gcc-conf"
