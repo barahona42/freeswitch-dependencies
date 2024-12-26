@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/nios2/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/nios2/linux-unwind.h	2024-12-23 16:35:03
+--- /var/gcc/libgcc/config/nios2/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/nios2/linux-unwind.h	2024-12-23 16:35:03
 @@ -38,7 +38,7 @@
  
  struct nios2_ucontext {

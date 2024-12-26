@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/xtensa/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/xtensa/linux-unwind.h	2024-12-23 16:34:44
+--- /var/gcc/libgcc/config/xtensa/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/xtensa/linux-unwind.h	2024-12-23 16:34:44
 @@ -63,7 +63,7 @@
  
    struct rt_sigframe {

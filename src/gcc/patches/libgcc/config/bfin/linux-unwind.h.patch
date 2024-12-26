@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/bfin/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/bfin/linux-unwind.h	2024-12-23 16:35:21
+--- /var/gcc/libgcc/config/bfin/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/bfin/linux-unwind.h	2024-12-23 16:35:21
 @@ -52,7 +52,7 @@
  	void *puc;
  	char retcode[8];

@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/aarch64/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/aarch64/linux-unwind.h	2024-12-23 16:34:39
+--- /var/gcc/libgcc/config/aarch64/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/aarch64/linux-unwind.h	2024-12-23 16:34:39
 @@ -52,7 +52,7 @@
    struct rt_sigframe
    {

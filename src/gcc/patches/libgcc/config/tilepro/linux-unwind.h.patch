@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/tilepro/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/tilepro/linux-unwind.h	2024-12-23 16:34:48
+--- /var/gcc/libgcc/config/tilepro/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/tilepro/linux-unwind.h	2024-12-23 16:34:48
 @@ -61,7 +61,7 @@
    struct rt_sigframe {
      unsigned char save_area[C_ABI_SAVE_AREA_SIZE];

@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/sh/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/sh/linux-unwind.h	2024-12-23 16:34:54
+--- /var/gcc/libgcc/config/sh/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/sh/linux-unwind.h	2024-12-23 16:34:54
 @@ -83,7 +83,7 @@
  	siginfo_t *pinfo;
  	void *puc;

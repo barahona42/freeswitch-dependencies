@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/i386/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/i386/linux-unwind.h	2024-12-23 16:35:14
+--- /var/gcc/libgcc/config/i386/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/i386/linux-unwind.h	2024-12-23 16:35:14
 @@ -58,7 +58,7 @@
    if (*(unsigned char *)(pc+0) == 0x48
        && *(unsigned long long *)(pc+1) == RT_SIGRETURN_SYSCALL)

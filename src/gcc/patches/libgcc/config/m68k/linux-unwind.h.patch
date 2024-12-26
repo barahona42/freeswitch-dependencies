@@ -1,5 +1,5 @@
---- tmp/gcc/libgcc/config/m68k/linux-unwind.h.orig	2024-12-23 16:30:31
-+++ tmp/gcc/libgcc/config/m68k/linux-unwind.h	2024-12-23 16:33:06
+--- /var/gcc/libgcc/config/m68k/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/m68k/linux-unwind.h	2024-12-23 16:33:06
 @@ -33,7 +33,7 @@
  /* <sys/ucontext.h> is unfortunately broken right now.  */
  struct uw_ucontext {
