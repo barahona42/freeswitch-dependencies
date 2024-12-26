@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -u
-
 info(){
     printf "\033[35m%s\033[0m\n" "$1"
 }
