@@ -32,6 +32,8 @@ section "applying patches to gcc"
 for file in $(find src/gcc/patches -type f -name '*.patch'); do
     source="$(realpath $file)"
     target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
+    test -f $target || echo "missing target: $target. skipping patch."
+    test -f $source || echo "missing source: $source. skipping patch"
     echo -e "applying\n\t$source --> $target"
     cd "$(dirname $target)"
     patch < "$source"
@@ -45,8 +47,7 @@ cd /tmp/gcc && ./contrib/download_prerequisites
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 info "build_host: $(< /var/build_host)"
 
-## we don't need to configure and install these prerequisites ourselves. gcc build will do it for us.
-# info "building prerequisites"
+## we don't need to configure and install these prerequisites ourselves. gcc build will do  q
 # dirs=(gmp cloog isl mpfr mpc)
 # for d in ${dirs[@]}; do
 #     info "prereq: /tmp/gcc/$d"
