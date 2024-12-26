@@ -48,7 +48,7 @@ info "build_host: $(< /var/build_host)"
 
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+export LD_LIBRARY_PATH=/usr/lib64
 
 info "created objdir"
 rm -rf /var/objdir
