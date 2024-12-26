@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+asg_name=cf-telephony-testing-compute-AutoScalingGroup-50RGnGfqFYfN
+aws_cmd="aws --profile dev --region us-west-2"
+# keep an instance index
+i=1
+# pull the instances from the asg
+jq --slurp -r '.' < <(
+while read -r instanceid; do
+    # parse the instance
+    while read -r privateip az state name launch_time key_name; do
+        # find the keyfile in local filesystem
+        # local keyfile=$(basename $(find $HOME/.ssh -type f -iname "$key_name*"))
+        ## build out a json object and store it in a temp file
+        jq -nr \
+            --arg index "$i" \
+            --arg instance_id "$instanceid" \
+            --arg ipaddr "$privateip" \
+            --arg zone "$az" \
+            --arg state "$state" \
+            --arg name "$name" \
+            --arg launch_time "$(date --utc -d $launch_time +'%F %T %Z')" \
+            --arg key_name "$key_name" \
+            '{Index: $index|fromjson, ID: $instance_id, IP: $ipaddr, Zone: $zone, State: $state, Name: $name, Launched: $launch_time, Key: $key_name}' | jq -rc '.'
+    done< <($aws_cmd ec2 describe-instances --instance-ids $(echo $instanceid|xargs) --query 'Reservations[*].Instances[*]' | jq -r '.[] | .[] | [.PrivateIpAddress, .Placement.AvailabilityZone, .State.Name, (.Tags[] | select(.Key == "Name").Value), .LaunchTime, .KeyName] | @sh' | xargs)
+    i=$((i+1))
+done< <($aws_cmd autoscaling describe-auto-scaling-groups --auto-scaling-group-names "$asg_name" --query 'AutoScalingGroups[0].Instances[].InstanceId' | jq -r '.[] | @sh' | tr -d "'")
+) | nu --stdin -c 'from json | select ID IP Zone State'
