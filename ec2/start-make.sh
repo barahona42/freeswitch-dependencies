@@ -15,6 +15,10 @@ section(){
 START_DIR=$(pwd)
 
 cd /var/objdir
+
+export LD_PRELOAD=/usr/lib64/libstdc++.so.6
+export LD_LIBRARY_PATH=/usr/lib64
+
 make -n -j 8 2>&1 | tee /var/log/gcc-make
 
 cd $START_DIR
