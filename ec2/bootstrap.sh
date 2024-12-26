@@ -55,6 +55,7 @@ rm -rf /var/objdir
 mkdir /var/objdir
 cd /var/objdir
 info "configuring"
-../gcc/configure --disable-multilib --enable-languages=c,c++ 
+../gcc/configure --disable-multilib --enable-languages=c,c++ | tee /var/log/gcc-conf igure.log
 info "configuration completed at $(pwd)"
 cd -
+bash scripts/notify-slack.sh "configure stage completed" "/var/log/gcc-configure.log"
