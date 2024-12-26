@@ -34,39 +34,12 @@ section "applying patches to gcc"
 
 bash scripts/patching/apply-patches.sh
 
-# for file in $(find src/gcc/patches -type f -name '*.patch'); do
-#     source="$(realpath $file)"
-#     target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
-#     test -f $target || echo "skipping patch due to missing target: '$target'" && continue
-#     test -f $source || echo "skipping patch due to missing source: '$source'" && continue
-#     test -d $(dirname $target) || echo "skipping patch due to missing target directory '$(dirname $target)'" && continue
-#     # echo -e "applying\n\t$source --> $target"
-#     # cd "$(dirname $target)"
-#     # patch < "$source"
-#     cd -
-# done
-exit 0
 info "downloading prerequisites"
 
 cd /tmp/gcc && ./contrib/download_prerequisites
 
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 info "build_host: $(< /var/build_host)"
-
-## we don't need to configure and install these prerequisites ourselves. gcc build will do  q
-# dirs=(gmp cloog isl mpfr mpc)
-# for d in ${dirs[@]}; do
-#     info "prereq: /tmp/gcc/$d"
-#     cd /tmp/gcc/$d
-#     ./configure --build=$(</var/build_host)
-#     make
-#     make install
-#     info "$d: done"
-# done
-
-# patch_file=$(realpath ./src/gcc/patches/linux-unwind.patch)
-# cd /tmp/gcc/libgcc/config/i386 && patch < $patch_file
-# cd -
 
 section "starting gcc build"
 export LD_PRELOAD=/usr/lib64/libstdc++.so.6
