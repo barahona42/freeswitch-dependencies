@@ -32,17 +32,19 @@ rm -rf /var/gcc && mkdir /var/gcc && tar -C /var/gcc --strip-components 1 -xzvf 
 ## libgcc does not exist yet
 section "applying patches to gcc"
 
-for file in $(find src/gcc/patches -type f -name '*.patch'); do
-    source="$(realpath $file)"
-    target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
-    test -f $target || echo "skipping patch due to missing target: '$target'" && continue
-    test -f $source || echo "skipping patch due to missing source: '$source'" && continue
-    test -d $(dirname $target) || echo "skipping patch due to missing target directory '$(dirname $target)'" && continue
-    # echo -e "applying\n\t$source --> $target"
-    # cd "$(dirname $target)"
-    # patch < "$source"
-    cd -
-done
+bash scripts/patching/apply-patches.sh
+
+# for file in $(find src/gcc/patches -type f -name '*.patch'); do
+#     source="$(realpath $file)"
+#     target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
+#     test -f $target || echo "skipping patch due to missing target: '$target'" && continue
+#     test -f $source || echo "skipping patch due to missing source: '$source'" && continue
+#     test -d $(dirname $target) || echo "skipping patch due to missing target directory '$(dirname $target)'" && continue
+#     # echo -e "applying\n\t$source --> $target"
+#     # cd "$(dirname $target)"
+#     # patch < "$source"
+#     cd -
+# done
 exit 0
 info "downloading prerequisites"
 
