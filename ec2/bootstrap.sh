@@ -59,4 +59,4 @@ info "configuring"
 ../gcc/configure --disable-multilib --enable-languages=c,c++ | tee /var/log/gcc-conf
 info "configuration completed at $(pwd)"
 cd $START_DIR
-bash scripts/notify-slack.sh "configure stage completed" "/var/log/gcc-conf"
+bash scripts/notify-slack.sh "$(hostname) configure finished" "/var/log/gcc-conf"
