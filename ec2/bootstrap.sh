@@ -13,6 +13,7 @@ section(){
 }
 
 ## install dnf packages
+START_DIR=$(pwd)
 
 section "installing dnf packages"
 
@@ -57,5 +58,5 @@ cd /var/objdir
 info "configuring"
 ../gcc/configure --disable-multilib --enable-languages=c,c++ | tee /var/log/gcc-conf igure.log
 info "configuration completed at $(pwd)"
-cd -
+cd $START_DIR
 bash scripts/notify-slack.sh "configure stage completed" "/var/log/gcc-configure.log"
