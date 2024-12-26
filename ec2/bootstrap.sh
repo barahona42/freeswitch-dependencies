@@ -32,14 +32,15 @@ section "applying patches to gcc"
 for file in $(find src/gcc/patches -type f -name '*.patch'); do
     source="$(realpath $file)"
     target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
-    test -f $target || echo "missing target: $target. skipping patch."
-    test -f $source || echo "missing source: $source. skipping patch"
-    echo -e "applying\n\t$source --> $target"
-    cd "$(dirname $target)"
-    patch < "$source"
+    test -f $target || echo "missing target: $target. skipping patch." && contine
+    test -f $source || echo "missing source: $source. skipping patch" && continue
+    test -d $(dirname $target) || echo "missing target directory: $(dirname $target)" && continue
+    # echo -e "applying\n\t$source --> $target"
+    # cd "$(dirname $target)"
+    # patch < "$source"
     cd -
 done
-
+exit 0
 info "downloading prerequisites"
 
 cd /tmp/gcc && ./contrib/download_prerequisites
