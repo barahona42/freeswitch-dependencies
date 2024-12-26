@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 info(){
     printf "\033[35m%s\033[0m\n" "$1"
 }
@@ -20,21 +22,22 @@ dnf install -y $(cat ec2/dnf-requirements.txt | xargs)
 updatedb || true
 
 section "preparing gcc-prereqs"
-if [[ ! -f /tmp/gcc.tar.gz ]]; then
+if [[ ! -f /var/gcc.tar.gz ]]; then
     info "downloading gcc tarball"
-    wget -O /tmp/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
+    wget -O /var/gcc.tar.gz https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.gz
 fi
 info "extracting gcc"
-rm -rf /tmp/gcc && mkdir /tmp/gcc && tar -C /tmp/gcc --strip-components 1 -xzvf /tmp/gcc.tar.gz
+rm -rf /var/gcc && mkdir /var/gcc && tar -C /var/gcc --strip-components 1 -xzvf /var/gcc.tar.gz
 
+## libgcc does not exist yet
 section "applying patches to gcc"
 
 for file in $(find src/gcc/patches -type f -name '*.patch'); do
     source="$(realpath $file)"
     target="/tmp/gcc/$(realpath --relative-to src/gcc/patches "${file%.patch}")"
-    test -f $target || echo "missing target: $target. skipping patch." && contine
-    test -f $source || echo "missing source: $source. skipping patch" && continue
-    test -d $(dirname $target) || echo "missing target directory: $(dirname $target)" && continue
+    test -f $target || echo "skipping patch due to missing target: '$target'" && continue
+    test -f $source || echo "skipping patch due to missing source: '$source'" && continue
+    test -d $(dirname $target) || echo "skipping patch due to missing target directory '$(dirname $target)'" && continue
     # echo -e "applying\n\t$source --> $target"
     # cd "$(dirname $target)"
     # patch < "$source"
