@@ -58,7 +58,7 @@ cd /var/objdir
 info "configuring"
 ## TODO: try with build and target flags
 ../gcc/configure --disable-multilib \
-    --enable-shared --with-system-zlib \
+    --enable-shared \
     --enable-languages=c,c++ \
     --build=$(< /var/build_host) \
     --host=$(< /var/build_host) 2>&1 | tee /var/log/gcc-conf
