@@ -15,7 +15,7 @@ section(){
 START_DIR=$(pwd)
 
 cd /var/objdir
-make -n -j 2 | tee /var/log/gcc-make
+make -n -j 2 2>&1 | tee /var/log/gcc-make
 
 cd $START_DIR
 
