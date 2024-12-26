@@ -34,9 +34,9 @@ section "applying patches to gcc"
 
 bash scripts/patching/apply-patches.sh
 
-info "downloading prerequisites"
+section "downloading prerequisites"
 
-cd /tmp/gcc && ./contrib/download_prerequisites
+cd /var/gcc && ./contrib/download_prerequisites
 
 $(find /usr/share -maxdepth 1 -type d -name 'automake*')/config.guess > /var/build_host
 info "build_host: $(< /var/build_host)"
@@ -46,9 +46,9 @@ export LD_PRELOAD=/usr/lib64/libstdc++.so.6
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
 
 info "created objdir"
-rm -rf /tmp/objdir
-mkdir /tmp/objdir
-cd /tmp/objdir
+rm -rf /var/objdir
+mkdir /var/objdir
+cd /var/objdir
 info "configuring"
 ../gcc/configure --disable-multilib --enable-languages=c,c++ 
 
