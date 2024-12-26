@@ -56,9 +56,5 @@ mkdir /var/objdir
 cd /var/objdir
 info "configuring"
 ../gcc/configure --disable-multilib --enable-languages=c,c++ 
-
+info "configuration completed at $(pwd)"
 cd -
-# bash scripts/notify-slack.sh "ec2 bootstrap completed"
-## TODO: build without setting the build flag?
-# ../gcc/configure --disable-multilib --enable-languages=c,c++ --build=$(< /var/build_host) --prefix=$HOME/gcc
-# make -j 2
