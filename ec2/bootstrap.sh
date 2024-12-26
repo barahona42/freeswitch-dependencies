@@ -56,6 +56,7 @@ rm -rf /var/objdir
 mkdir /var/objdir
 cd /var/objdir
 info "configuring"
+## TODO: try with build and target flags
 ../gcc/configure --disable-multilib --enable-languages=c,c++ | tee /var/log/gcc-conf
 info "configuration completed at $(pwd)"
 cd $START_DIR
