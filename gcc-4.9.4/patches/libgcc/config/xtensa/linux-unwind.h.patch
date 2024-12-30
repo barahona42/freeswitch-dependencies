@@ -1,0 +1,11 @@
+--- /var/gcc/libgcc/config/xtensa/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/xtensa/linux-unwind.h	2024-12-23 16:34:44
+@@ -63,7 +63,7 @@
+ 
+   struct rt_sigframe {
+     siginfo_t info;
+-    struct ucontext uc;
++    struct ucontext_t uc;
+   } *rt_;
+ 
+   /* movi a2, __NR_rt_sigreturn; syscall */

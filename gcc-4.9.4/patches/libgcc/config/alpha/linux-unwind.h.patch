@@ -1,0 +1,11 @@
+--- /var/gcc/libgcc/config/alpha/linux-unwind.h.orig	2024-12-23 16:30:31
++++ /var/gcc/libgcc/config/alpha/linux-unwind.h	2024-12-23 16:35:30
+@@ -51,7 +51,7 @@
+     {
+       struct rt_sigframe {
+ 	siginfo_t info;
+-	struct ucontext uc;
++	struct ucontext_t uc;
+       } *rt_ = context->cfa;
+       sc = &rt_->uc.uc_mcontext;
+     }
