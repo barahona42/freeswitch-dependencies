@@ -19,10 +19,9 @@ if ! test -d gcc-$TARGET_VERSION; then
 fi
 
 START_DIR=$(pwd)
-WORKDIR=gcc-$TARGET_VERSION
-
-source $WORKDIR/.build-env
-
-rm -rf $WORKDIR/{objdir,log} && mkdir $WORKDIR/{objdir,log}
-cd $WORKDIR/objdir
-../gcc/configure --disable-multilib --enable-languages=c,c++ 2>&1 | tee $WORKDIR/log/configure.log
+bash scripts/00-tarball.sh $TARGET_VERSION
+bash scripts/01-patch.sh $TARGET_VERSION
+bash scripts/02-prereqs.sh $TARGET_VERSION
+bash scripts/03-configure.sh $TARGET_VERSION
+bash scripts/04-make.sh $TARGET_VERSION
+cd $START_DIR
