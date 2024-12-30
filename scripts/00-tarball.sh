@@ -33,7 +33,7 @@ else
 fi
 
 info "extracting gcc tarball"
-rm -rf $WORKDIR/gcc && mkdir $WORKDIR/gcc && tar -C $WORKDIR/gcc --strip-components 1 -xzvf $WORKDIR/gcc.tar.gz
+rm -rf $WORKDIR/gcc && mkdir $WORKDIR/gcc && tar -C $WORKDIR/gcc --strip-components 1 -xzf $WORKDIR/gcc.tar.gz
 
 # ## libgcc does not exist yet
 # section "applying patches to gcc"
