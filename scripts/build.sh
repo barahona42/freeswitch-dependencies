@@ -25,3 +25,5 @@ bash scripts/02-prereqs.sh $TARGET_VERSION
 bash scripts/03-configure.sh $TARGET_VERSION
 bash scripts/04-make.sh $TARGET_VERSION
 cd $START_DIR
+
+dnf clean all
