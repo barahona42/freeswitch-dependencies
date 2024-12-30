@@ -3,3 +3,5 @@ browser.txt
 cf-telephony-testing
 chef_telephony_potluck
 .local/
+gcc-*/gcc
+gcc-*/gcc.tar.gz
