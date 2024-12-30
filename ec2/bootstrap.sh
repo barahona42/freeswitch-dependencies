@@ -12,6 +12,8 @@ section(){
     printf "\033[35m------------------------------\033[0m\n\n"
 }
 
+source .build-env
+
 ## install dnf packages
 START_DIR=$(pwd)
 
