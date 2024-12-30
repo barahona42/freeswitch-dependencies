@@ -23,7 +23,7 @@ WORKDIR=gcc-$TARGET_VERSION
 
 source $WORKDIR/.build-env
 
-rm -rf $WORKDIR/objdir
+rm -rf $WORKDIR/objdir && mkdir $WORKDIR/objdir
 mkdir -p $WORKDIR/log
 
 cd $WORKDIR/objdir
