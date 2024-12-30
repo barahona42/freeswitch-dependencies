@@ -50,4 +50,3 @@ for file in $(find $WORKDIR/patches -iname '*.patch'); do
     diff -y --suppress-common-lines $target_file $target_file.orig
     info "========================="
 done
-## go through the patching list
